@@ -133,7 +133,7 @@ importers:
       vite: ^4.0.0
       vitest: workspace:*
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       vite: 4.0.0
       vitest: link:../../packages/vitest
 
@@ -147,7 +147,7 @@ importers:
       vite: ^4.0.0
       vitest: workspace:*
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       axios: 0.26.1
       fastify: 4.5.3
       supertest: 6.2.4
@@ -166,7 +166,7 @@ importers:
       '@rollup/plugin-graphql': 1.1.0_graphql@16.6.0
       graphql: 16.6.0
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       vite: 4.0.0
       vitest: link:../../packages/vitest
 
@@ -177,7 +177,7 @@ importers:
       vite: ^4.0.0
       vitest: workspace:*
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       jest-image-snapshot: 4.5.1
       vite: 4.0.0
       vitest: link:../../packages/vitest
@@ -192,7 +192,7 @@ importers:
     dependencies:
       lit: 2.3.1
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       jsdom: 21.1.1
       vite: 4.0.0
       vitest: link:../../packages/vitest
@@ -214,7 +214,7 @@ importers:
       axios: 0.26.1
       tinyspy: 0.3.3
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       react: 18.2.0
       sweetalert2: 11.6.16
       vite: 4.0.0
@@ -256,7 +256,7 @@ importers:
       vitest: workspace:*
     devDependencies:
       '@playwright/test': 1.28.0
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       playwright: 1.28.0
       vite: 4.0.0
       vitest: link:../../packages/vitest
@@ -268,7 +268,7 @@ importers:
       vite: ^4.0.0
       vitest: workspace:*
     devDependencies:
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       puppeteer: 13.7.0
       vite: 4.0.0
       vitest: link:../../packages/vitest
@@ -291,7 +291,7 @@ importers:
       '@types/react': 17.0.49
       '@types/react-test-renderer': 17.0.2
       '@vitejs/plugin-react': 3.1.0_vite@4.0.0
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       happy-dom: 8.9.0
       jsdom: 21.1.1
       react-test-renderer: 17.0.2_react@17.0.2
@@ -320,7 +320,7 @@ importers:
       '@types/react': 17.0.49
       '@types/react-dom': 17.0.17
       '@vitejs/plugin-react': 3.1.0_vite@4.0.0
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       '@wojtekmaj/enzyme-adapter-react-17': 0.6.7_7ltvq4e2railvf5uya4ffxpe2a
       enzyme: 3.11.0
       jsdom: 20.0.3
@@ -364,7 +364,7 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.3.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       date-fns: 2.29.2
       jsdom: 21.1.1
       vite: 4.0.0
@@ -416,7 +416,7 @@ importers:
       '@types/react': 17.0.49
       '@types/react-dom': 17.0.17
       '@vitejs/plugin-react': 1.3.2
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       babel-loader: 8.2.5_@babel+core@7.18.13
       jsdom: 21.1.1
       msw: 0.49.2_typescript@4.8.4
@@ -452,7 +452,7 @@ importers:
       '@types/react-dom': 18.0.8
       '@vitejs/plugin-react': 2.2.0_vite@4.0.0
       '@vitest/coverage-c8': 0.24.5
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       jsdom: 21.1.1
       typescript: 4.8.4
       vite: 4.0.0
@@ -484,7 +484,7 @@ importers:
       '@types/react': 17.0.49
       '@types/react-dom': 17.0.17
       '@vitejs/plugin-react': 1.3.2
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       cross-fetch: 3.1.5
       jsdom: 21.1.1
       msw: 0.49.2
@@ -540,7 +540,7 @@ importers:
     devDependencies:
       '@sveltejs/vite-plugin-svelte': 2.0.0_svelte@3.57.0+vite@4.0.0
       '@testing-library/svelte': 3.2.2_svelte@3.57.0
-      '@vitest/ui': 0.29.3
+      '@vitest/ui': link:../../packages/ui
       jsdom: 21.1.1
       svelte: 3.57.0
       vite: 4.0.0
@@ -802,13 +802,11 @@ importers:
       cli-truncate: ^3.1.0
       diff: ^5.1.0
       loupe: ^2.3.6
-      picocolors: ^1.0.0
       pretty-format: ^27.5.1
     dependencies:
       cli-truncate: 3.1.0
       diff: 5.1.0
       loupe: 2.3.6
-      picocolors: 1.0.0
       pretty-format: 27.5.1
     devDependencies:
       '@types/diff': 5.0.2
@@ -1049,6 +1047,18 @@ importers:
       lodash: 4.17.21
       prettier: 2.7.1
       temp-dir: 2.0.0
+      vitest: link:../../packages/vitest
+
+  test/config:
+    specifiers:
+      execa: ^7.0.0
+      strip-ansi: ^7.0.1
+      vite: ^4.0.0
+      vitest: workspace:*
+    devDependencies:
+      execa: 7.0.0
+      strip-ansi: 7.0.1
+      vite: 4.0.0
       vitest: link:../../packages/vitest
 
   test/core:
@@ -8337,16 +8347,6 @@ packages:
     dependencies:
       c8: 7.12.0
       vitest: link:packages/vitest
-    dev: true
-
-  /@vitest/ui/0.29.3:
-    resolution: {integrity: sha512-6xJyLhfSBRCzMbI9ip4BI7KIMnIM5cqOFl1sj4GSuHfRai17Q3FYZRcNvgo4TlE0f38/MSXDfjOc35/ZepYIWw==}
-    dependencies:
-      fast-glob: 3.2.12
-      flatted: 3.2.7
-      pathe: 1.1.0
-      picocolors: 1.0.0
-      sirv: 2.0.2
     dev: true
 
   /@volar/code-gen/0.40.13:
