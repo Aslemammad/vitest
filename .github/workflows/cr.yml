@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   release:
-    if: github.repository == 'vitest-dev/vitest' && (github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'cr-tracked'))
+    if: github.ref == 'refs/heads/main' || contains(github.event.pull_request.labels.*.name, 'cr-tracked')
     runs-on: ubuntu-latest
 
     steps:
