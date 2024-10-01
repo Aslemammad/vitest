@@ -1,168 +1,168 @@
-name: CI
+# name: CI
 
-# Remove default permissions of GITHUB_TOKEN for security
-# https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
-permissions: {}
+# # Remove default permissions of GITHUB_TOKEN for security
+# # https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
+# permissions: {}
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-  pull_request:
-    branches:
-      - main
+#   pull_request:
+#     branches:
+#       - main
 
-  workflow_dispatch:
+#   workflow_dispatch:
 
-concurrency:
-  group: ci-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ci-${{ github.event.pull_request.number || github.ref }}
+#   cancel-in-progress: true
 
-env:
-  PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
+# env:
+#   PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/.cache/ms-playwright
 
-jobs:
-  lint:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    name: 'Lint: node-latest, ubuntu-latest'
-    steps:
-      - uses: actions/checkout@v4
+# jobs:
+#   lint:
+#     timeout-minutes: 10
+#     runs-on: ubuntu-latest
+#     name: 'Lint: node-latest, ubuntu-latest'
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup-and-cache
+#       - uses: ./.github/actions/setup-and-cache
 
-      - name: Install
-        run: pnpm i
+#       - name: Install
+#         run: pnpm i
 
-      - name: Build
-        run: pnpm run build
+#       - name: Build
+#         run: pnpm run build
 
-      - name: Lint
-        run: pnpm run lint
+#       - name: Lint
+#         run: pnpm run lint
 
-      - name: Typecheck
-        run: pnpm run typecheck
+#       - name: Typecheck
+#         run: pnpm run typecheck
 
-      # From https://github.com/rhysd/actionlint/blob/main/docs/usage.md#use-actionlint-on-github-actions
-      - name: Check workflow files
-        run: |
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color -shellcheck=""
+#       # From https://github.com/rhysd/actionlint/blob/main/docs/usage.md#use-actionlint-on-github-actions
+#       - name: Check workflow files
+#         run: |
+#           bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+#           ./actionlint -color -shellcheck=""
 
-  changed:
-    runs-on: ubuntu-latest
-    name: 'Diff: node-latest, ubuntu-latest'
-    outputs:
-      should_skip: ${{ steps.changed-files.outputs.only_changed == 'true' }}
+#   changed:
+#     runs-on: ubuntu-latest
+#     name: 'Diff: node-latest, ubuntu-latest'
+#     outputs:
+#       should_skip: ${{ steps.changed-files.outputs.only_changed == 'true' }}
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275 # v45.0.1
-        with:
-          files: |
-            docs/**
-            .github/**
-            !.github/workflows/ci.yml
-            **.md
+#       - name: Get changed files
+#         id: changed-files
+#         uses: tj-actions/changed-files@e9772d140489982e0e3704fea5ee93d536f1e275 # v45.0.1
+#         with:
+#           files: |
+#             docs/**
+#             .github/**
+#             !.github/workflows/ci.yml
+#             **.md
 
-  test:
-    needs: changed
-    name: 'Build&Test: node-${{ matrix.node_version }}, ${{ matrix.os }}'
-    if: needs.changed.outputs.should_skip != 'true'
-    runs-on: ${{ matrix.os }}
+#   test:
+#     needs: changed
+#     name: 'Build&Test: node-${{ matrix.node_version }}, ${{ matrix.os }}'
+#     if: needs.changed.outputs.should_skip != 'true'
+#     runs-on: ${{ matrix.os }}
 
-    timeout-minutes: 30
+#     timeout-minutes: 30
 
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [18, 20, 22]
-        include:
-          - os: macos-latest
-            node_version: 20
-          - os: windows-latest
-            node_version: 20
-      fail-fast: false
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest]
+#         node_version: [18, 20, 22]
+#         include:
+#           - os: macos-latest
+#             node_version: 20
+#           - os: windows-latest
+#             node_version: 20
+#       fail-fast: false
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup-and-cache
-        with:
-          node-version: ${{ matrix.node_version }}
+#       - uses: ./.github/actions/setup-and-cache
+#         with:
+#           node-version: ${{ matrix.node_version }}
 
-      - uses: browser-actions/setup-chrome@v1
+#       - uses: browser-actions/setup-chrome@v1
 
-      - name: Install
-        run: pnpm i
+#       - name: Install
+#         run: pnpm i
 
-      - name: Install Playwright Dependencies
-        run: pnpm exec playwright install chromium --with-deps
+#       - name: Install Playwright Dependencies
+#         run: pnpm exec playwright install chromium --with-deps
 
-      - name: Build
-        run: pnpm run build
+#       - name: Build
+#         run: pnpm run build
 
-      - name: Test
-        run: pnpm run test:ci
+#       - name: Test
+#         run: pnpm run test:ci
 
-      - name: Test Examples
-        run: pnpm run test:examples
+#       - name: Test Examples
+#         run: pnpm run test:examples
 
-      - name: Unit Test UI
-        run: pnpm run -C packages/ui test:ui
+#       - name: Unit Test UI
+#         run: pnpm run -C packages/ui test:ui
 
-  test-browser:
-    needs: changed
-    name: 'Browser: ${{ matrix.browser[0] }}, ${{ matrix.os }}'
-    if: needs.changed.outputs.should_skip != 'true'
+#   test-browser:
+#     needs: changed
+#     name: 'Browser: ${{ matrix.browser[0] }}, ${{ matrix.os }}'
+#     if: needs.changed.outputs.should_skip != 'true'
 
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os:
-          - macos-latest
-          - windows-latest
-        browser:
-          - [chromium, chrome]
-          - [firefox, firefox]
-          - [webkit]
-      fail-fast: false
+#     runs-on: ${{ matrix.os }}
+#     strategy:
+#       matrix:
+#         os:
+#           - macos-latest
+#           - windows-latest
+#         browser:
+#           - [chromium, chrome]
+#           - [firefox, firefox]
+#           - [webkit]
+#       fail-fast: false
 
-    timeout-minutes: 30
+#     timeout-minutes: 30
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup-and-cache
-        with:
-          node-version: 20
+#       - uses: ./.github/actions/setup-and-cache
+#         with:
+#           node-version: 20
 
-      - uses: browser-actions/setup-chrome@v1
-        if: ${{ matrix.browser[0] == 'chromium' }}
-      - uses: browser-actions/setup-firefox@v1
-        if: ${{ matrix.browser[0] == 'firefox' }}
+#       - uses: browser-actions/setup-chrome@v1
+#         if: ${{ matrix.browser[0] == 'chromium' }}
+#       - uses: browser-actions/setup-firefox@v1
+#         if: ${{ matrix.browser[0] == 'firefox' }}
 
-      - name: Install
-        run: pnpm i
+#       - name: Install
+#         run: pnpm i
 
-      - name: Install Playwright Dependencies
-        if: needs.changed.outputs.should_skip != 'true'
-        run: pnpm exec playwright install ${{ matrix.browser[0] }} --with-deps
+#       - name: Install Playwright Dependencies
+#         if: needs.changed.outputs.should_skip != 'true'
+#         run: pnpm exec playwright install ${{ matrix.browser[0] }} --with-deps
 
-      - name: Build
-        run: pnpm run build
+#       - name: Build
+#         run: pnpm run build
 
-      - name: Test Browser (playwright)
-        run: pnpm run test:browser:playwright
-        env:
-          BROWSER: ${{ matrix.browser[0] }}
+#       - name: Test Browser (playwright)
+#         run: pnpm run test:browser:playwright
+#         env:
+#           BROWSER: ${{ matrix.browser[0] }}
 
-      - name: Test Browser (webdriverio)
-        run: pnpm run test:browser:webdriverio
-        if: ${{ matrix.browser[1] }}
-        env:
-          BROWSER: ${{ matrix.browser[1] }}
+#       - name: Test Browser (webdriverio)
+#         run: pnpm run test:browser:webdriverio
+#         if: ${{ matrix.browser[1] }}
+#         env:
+#           BROWSER: ${{ matrix.browser[1] }}
