@@ -43,4 +43,4 @@ jobs:
           NO_VITE_TEST_WATCHER_DEBUG: '1'
 
       - name: Publish to StackBlitz
-        run: API_URL=https://pkg.pr.new/ pnpx pkg-pr-new@https://682e48d1.stackblitz-cr.pages.dev/stackblitz-labs/pkg.pr.new/pkg-pr-new@256 publish --compact --no-template --pnpm './packages/*'
+        run: pnpx pkg-pr-new publish --compact --no-template --pnpm './packages/*'
